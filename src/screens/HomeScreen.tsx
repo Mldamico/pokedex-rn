@@ -12,6 +12,7 @@ import {appTheme} from '../theme/appTheme';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 import {FadeInImage} from '../components/FadeInImage';
 import {PokemonCard} from '../components/PokemonCard';
+import {useAnimation} from '../hooks/useAnimation';
 
 export const HomeScreen = () => {
   const {top} = useSafeAreaInsets();
