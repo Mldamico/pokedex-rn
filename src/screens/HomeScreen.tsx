@@ -10,6 +10,7 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {appTheme} from '../theme/appTheme';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
+import {FadeInImage} from '../components/FadeInImage';
 
 export const HomeScreen = () => {
   const {top} = useSafeAreaInsets();
@@ -28,10 +29,7 @@ export const HomeScreen = () => {
         data={simplePokemonList}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <Image
-            source={{uri: item.picture}}
-            style={{width: 100, height: 100}}
-          />
+          <FadeInImage uri={item.picture} style={{width: 100, height: 100}} />
         )}
         showsVerticalScrollIndicator={false}
         onEndReached={loadPokemons}
