@@ -1,12 +1,12 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {Platform} from 'react-native';
-import {HomeScreen} from '../screens/HomeScreen';
-import {SearchScreen} from '../screens/SearchScreen';
-import {StackNavigation} from './StackNavigation';
-
 import Icon from 'react-native-vector-icons/Ionicons';
+import {PokemonTabNavigation} from './PokemonTabNavigation';
+import {SearchTabNavigation} from './SearchTabNavigation';
+
 const Tab = createBottomTabNavigator();
+
 export function TabNavigation() {
   return (
     <Tab.Navigator
@@ -24,7 +24,7 @@ export function TabNavigation() {
       }}>
       <Tab.Screen
         name="HomeScreen"
-        component={StackNavigation}
+        component={PokemonTabNavigation}
         options={{
           tabBarLabel: 'Pokemon',
           tabBarIcon: ({color}) => (
@@ -34,7 +34,7 @@ export function TabNavigation() {
       />
       <Tab.Screen
         name="SearchScreen"
-        component={SearchScreen}
+        component={SearchTabNavigation}
         options={{
           tabBarLabel: 'Pokemon',
           tabBarIcon: ({color}) => (

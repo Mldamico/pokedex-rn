@@ -11,7 +11,7 @@ export type RootStackParams = {
 
 const Stack = createStackNavigator<RootStackParams>();
 
-export function StackNavigation() {
+export function PokemonTabNavigation() {
   return (
     <Stack.Navigator
       screenOptions={{
