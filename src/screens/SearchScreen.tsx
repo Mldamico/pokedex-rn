@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -13,10 +13,25 @@ import {PokemonCard} from '../components/PokemonCard';
 import {SearchInput} from '../components/SearchInput';
 import {usePokemonSearch} from '../hooks/usePokemonSearch';
 import {appTheme} from '../theme/appTheme';
+import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 const {width: windowWidth} = Dimensions.get('window');
 export const SearchScreen = () => {
   const {top} = useSafeAreaInsets();
   const {isFetching, simplePokemonList} = usePokemonSearch();
+  const [term, setTerm] = useState('');
+  const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
+
+  useEffect(() => {
+    if (term.length === 0) {
+      return setPokemonFiltered([]);
+    }
+    setPokemonFiltered(
+      simplePokemonList.filter(poke =>
+        poke.name.toLowerCase().startsWith(term.toLowerCase()),
+      ),
+    );
+  }, [term]);
+
   if (isFetching) {
     return <Loading />;
   }
@@ -28,6 +43,7 @@ export const SearchScreen = () => {
         marginHorizontal: 20,
       }}>
       <SearchInput
+        onDebounce={value => setTerm(value)}
         style={{
           position: 'absolute',
           zIndex: 999,
@@ -36,7 +52,7 @@ export const SearchScreen = () => {
         }}
       />
       <FlatList
-        data={simplePokemonList}
+        data={pokemonFiltered}
         keyExtractor={item => item.id}
         ListHeaderComponent={
           <Text
@@ -46,7 +62,7 @@ export const SearchScreen = () => {
               marginTop: Platform.OS === 'ios' ? top + 60 : top + 80,
               ...appTheme.globalMargin,
             }}>
-            Pokedex
+            {term}
           </Text>
         }
         numColumns={2}
